@@ -1,0 +1,41 @@
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .half-width {
+    width: 48%;
+  }
+  
+  .third-width {
+    width: 32%;
+  }
+  
+  .sixth-width {
+    width: 15%;
+  }
+  
+  mat-form-field {
+    margin-right: 10px;
+  }
+  
+  mat-checkbox {
+    margin-top: 10px;
+  }
+  
+  button {
+    margin-right: 10px;
+  }
+  
+  mat-horizontal-stepper {
+    margin: auto;
+    max-width: 600px;
+  }
+  
+
+  

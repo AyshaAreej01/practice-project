@@ -1,0 +1,94 @@
+    <form [formGroup]="enrolleeForm">
+        <h2>Enrollee</h2>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="third-width">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="sixth-width">
+                <mat-label>MI</mat-label>
+                <input matInput formControlName="middleInitial" maxlength="1" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="third-width">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" required />
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="sex" required>
+                    <mat-option value="male">Male</mat-option>
+                    <mat-option value="female">Female</mat-option>
+                    <mat-option value="other">Other</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" type="email" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phoneNumber" type="tel" pattern="^[0-9]{10}$" required />
+                <mat-hint>10 Digit US Phone Number without dashes</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Student ID</mat-label>
+                <input matInput formControlName="studentId" type="text" />
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-checkbox formControlName="noUsAddress">
+                I currently do not have a US Address available. I must contact International Student Protection at
+                <a href="mailto:info&#64;intlstudentprotection.com">info&#64;intlstudentprotection.com</a>
+                to update my US address and phone number once available.
+            </mat-checkbox>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Address 1</mat-label>
+                <input matInput formControlName="address1" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Address 2</mat-label>
+                <input matInput formControlName="address2" />
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="third-width">
+                <mat-label>City</mat-label>
+                <input matInput formControlName="city" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="third-width">
+                <mat-label>State</mat-label>
+                <mat-select formControlName="state" required>
+                    <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="third-width">
+                <mat-label>ZIP</mat-label>
+                <input matInput formControlName="zip" type="text" pattern="^[0-9]{5}$" required />
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" matStepperNext>
+            Next
+          </button>
+    </form>
