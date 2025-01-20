@@ -6,6 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MultiStepComponent } from './multi-step/multi-step.component';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
     LocationAndPlanComponent,
+    MultiStepComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
