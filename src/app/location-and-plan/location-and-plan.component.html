@@ -1,22 +1,28 @@
+<form [formGroup]="locationPlanForm">
+  <h2>Location and Plan</h2>
 
-<div class="row">
-  <h1>{{courseName}}</h1>
-  <div class="col-4">
-{{inputType}}
-  </div>
-  <input type="text" class="form-control" value="{{rollNo}}" placeholder="Enter your name">
-  <div class="col-4"></div>
-  <button class="btn btn-primary"(click)="changeCourseName()">Submit</button>
-</div>
-<div class="row">
-  <div class="col-3">
-    <input type="text" class="form-control"  placeholder="Enter your name" [(ngModel)]="courseName">-{{courseName}}
-  </div>
-</div>
+  <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Location</mat-label>
+      <mat-select formControlName="location">
+          <mat-option value="aliantUniversity">Aliant University</mat-option>
+          <mat-option value="otherUniversity">Other University</mat-option>
+      </mat-select>
+  </mat-form-field>
 
+  <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Plan</mat-label>
+      <mat-select formControlName="plan">
+          <mat-option value="trailBlazerBasic">Trail Blazer Basic</mat-option>
+          <mat-option value="advancedPlan">Advanced Plan</mat-option>
+      </mat-select>
+  </mat-form-field>
 
-<div class="row">
-  <div class="col-3">
-    <h2>{{firstName()}}</h2>
-  </div>
-</div>
+  <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Destination Country</mat-label>
+      <input matInput formControlName="destinationCountry" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" matStepperNext>
+      Next
+  </button>
+</form>

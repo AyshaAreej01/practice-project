@@ -6,34 +6,11 @@
     <mat-horizontal-stepper [linear]="true" #stepper>
         <!-- Step 1: Location and Plan -->
         <mat-step [stepControl]="locationPlanForm" label="Location and Plan">
-            <form [formGroup]="locationPlanForm">
-                <h2>Location and Plan</h2>
+            <app-location-and-plan [locationPlanForm]="locationPlanForm"></app-location-and-plan>
 
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Location</mat-label>
-                    <mat-select formControlName="location">
-                        <mat-option value="aliantUniversity">Aliant University</mat-option>
-                        <mat-option value="otherUniversity">Other University</mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Plan</mat-label>
-                    <mat-select formControlName="plan">
-                        <mat-option value="trailBlazerBasic">Trail Blazer Basic</mat-option>
-                        <mat-option value="advancedPlan">Advanced Plan</mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Destination Country</mat-label>
-                    <input matInput formControlName="destinationCountry" />
-                </mat-form-field>
-
-                <button mat-raised-button color="primary" matStepperNext>
-                    Next
-                </button>
-            </form>
+            <button mat-raised-button color="primary" matStepperNext>
+                Next
+            </button>
         </mat-step>
 
         <!-- Step 2: Coverage -->
@@ -72,11 +49,15 @@
         <!-- Step 3: Enrollee -->
         <mat-step [stepControl]="enrolleeForm" label="Enrollee">
             <app-enrolle [enrolleeForm]="enrolleeForm"></app-enrolle>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
         </mat-step>
 
         <!-- Step 4: Payment -->
         <mat-step label="Payment">
-            <p>Payment form content goes here...</p>
+            <a href="https://buy.stripe.com/test_28o7u1eyMcGBgLKaEE">Payment</a>
         </mat-step>
     </mat-horizontal-stepper>
 </div>

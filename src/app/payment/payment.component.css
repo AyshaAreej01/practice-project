@@ -1,0 +1,14 @@
+.stripe-card-element {
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.stripe-errors {
+    color: red;
+    margin-bottom: 16px;
+}
+.email-payment{
+    margin-left: 23px;
+}

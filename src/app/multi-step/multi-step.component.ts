@@ -9,6 +9,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnrolleComponent } from '../enrolle/enrolle.component';
+import { CommonModule } from '@angular/common';
+import { PaymentComponent } from '../payment/payment.component';
+import { LocationAndPlanComponent } from '../location-and-plan/location-and-plan.component';
 @Component({
   selector: 'app-multi-step',
   imports: [
@@ -22,6 +25,9 @@ import { EnrolleComponent } from '../enrolle/enrolle.component';
     MatSelectModule,
     MatNativeDateModule,
     EnrolleComponent,
+    CommonModule,
+    PaymentComponent,
+    LocationAndPlanComponent,
   ],
   templateUrl: './multi-step.component.html',
   styleUrl: './multi-step.component.css',
