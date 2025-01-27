@@ -10,7 +10,7 @@
     margin-bottom: 16px;
 }
 .email-payment{
-    margin-left: 23px;
+    /* margin-left: 23px; */
 }
 .card-section {
     margin: 16px 0;
@@ -28,5 +28,14 @@
   .full-width {
     width: 100%;
     margin-bottom: 16px;
+  }
+  .success-snackbar {
+    background-color: #4caf50; /* Green */
+    color: white;
+  }
+  
+  .error-snackbar {
+    background-color: #f44336; /* Red */
+    color: white;
   }
   

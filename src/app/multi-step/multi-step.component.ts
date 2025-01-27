@@ -12,6 +12,7 @@ import { EnrolleComponent } from '../enrolle/enrolle.component';
 import { CommonModule } from '@angular/common';
 import { PaymentComponent } from '../payment/payment.component';
 import { LocationAndPlanComponent } from '../location-and-plan/location-and-plan.component';
+import { LocationService } from '../services/location.service';
 @Component({
   selector: 'app-multi-step',
   imports: [
@@ -47,7 +48,7 @@ export class MultiStepComponent {
     { value: 'advancedPlan', label: 'Advanced Plan' },
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private locationService: LocationService) {
     this.locationPlanForm = this.fb.group({
       location: ['', Validators.required],
       plan: ['', Validators.required],
@@ -88,6 +89,17 @@ export class MultiStepComponent {
       ...this.enrolleeForm.value,
     };
 
-    console.log('Form Submitted', formData);
+    console.log('Submitting Form Data:', formData);
+
+    this.locationService.create(formData).subscribe(
+      (response) => {
+        console.log('Successfully created:', response);
+        alert('Location successfully created!');
+      },
+      (error) => {
+        console.error('Error creating location:', error);
+        alert('Failed to create location. Please try again.');
+      }
+    );
   }
 }

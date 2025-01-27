@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-payment',
@@ -30,7 +31,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule,
   ],
 })
 export class PaymentComponent implements OnInit {
@@ -45,7 +47,7 @@ export class PaymentComponent implements OnInit {
   private stripePublishableKey =
     'pk_test_51QjLARBROmvnBNkdEvNsvsfMEei6LiyaTJgNNaFh3emgjfCvRtJ3lzb0uMda7iBV635t0YVHJQ04o3SsCsACkWus00NhJ9EkCk';
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private snackBar: MatSnackBar) {}
 
   async ngOnInit(): Promise<void> {
     await this.initializeStripe();
@@ -72,30 +74,49 @@ export class PaymentComponent implements OnInit {
   }
 
   async handlePayment() {
-   
-
     this.isProcessing = true;
     const { name, email, amount } = this.paymentForm.value;
 
-    const response: any = await this.http
-      .post(`${environment.API_BASE_URL}payments/create-payment-intent`, { amount: amount * 100, currency: 'usd' })
-      .toPromise();
+    try {
+      const response: any = await this.http
+        .post(`${environment.API_BASE_URL}payments/create-payment-intent`, { amount: amount * 100, currency: 'usd' })
+        .toPromise();
 
-    const clientSecret = response.clientSecret;
+      const clientSecret = response.clientSecret;
 
-    const { error, paymentIntent } = await this.stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: this.card,
-        billing_details: { name, email },
-      },
-    });
+      const { error, paymentIntent } = await this.stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: this.card,
+          billing_details: { name, email },
+        },
+      });
 
-    this.isProcessing = false;
+      this.isProcessing = false;
 
-    if (error) {
-      this.paymentStatus = `Payment failed: ${error.message}`;
-    } else if (paymentIntent?.status === 'succeeded') {
-      this.paymentStatus = 'Payment succeeded!';
+      if (error) {
+        this.paymentStatus = `Payment failed: ${error.message}`;
+      } else if (paymentIntent?.status === 'succeeded') {
+        this.paymentStatus = 'Payment succeeded!';
+        this.showSuccessToast();
+      }
+    } catch (error) {
+      this.isProcessing = false;
+      this.paymentStatus = 'Payment failed!';
+      this.showErrorToast('Payment failed! Please try again.');
     }
+  }
+
+  showSuccessToast() {
+    this.snackBar.open('Data created successfully!', 'Close', {
+      duration: 3000, // Toast disappears after 3 seconds
+      panelClass: ['success-snackbar'],
+    });
+  }
+
+  showErrorToast(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['error-snackbar'],
+    });
   }
 }
