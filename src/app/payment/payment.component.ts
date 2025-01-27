@@ -15,6 +15,9 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-payment',
@@ -27,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule
   ],
 })
 export class PaymentComponent implements OnInit {
@@ -36,24 +40,24 @@ export class PaymentComponent implements OnInit {
   paymentForm!: FormGroup;
   isProcessing = false;
   paymentStatus: string | null = null;
+  countries = ['Pakistan', 'United States', 'Canada', 'United Kingdom'];
 
-  // Replace with your Stripe publishable key (Test Key)
   private stripePublishableKey =
     'pk_test_51QjLARBROmvnBNkdEvNsvsfMEei6LiyaTJgNNaFh3emgjfCvRtJ3lzb0uMda7iBV635t0YVHJQ04o3SsCsACkWus00NhJ9EkCk';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   async ngOnInit(): Promise<void> {
-    this.initializeStripe();
+    await this.initializeStripe();
     this.initializeForm();
   }
 
   async initializeStripe() {
-    const stripe = await loadStripe(this.stripePublishableKey);
-    if (!stripe) {
+    const stripeInstance = await loadStripe(this.stripePublishableKey);
+    if (!stripeInstance) {
       throw new Error('Stripe failed to load');
     }
-    this.stripe = stripe;
+    this.stripe = stripeInstance;
     this.elements = this.stripe.elements();
     this.card = this.elements.create('card');
     this.card.mount('#card-element');
@@ -63,32 +67,28 @@ export class PaymentComponent implements OnInit {
     this.paymentForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      amount: ['', [Validators.required, Validators.min(1)]]
     });
   }
 
   async handlePayment() {
-    if (!this.paymentForm.valid) {
-      this.paymentStatus = 'Please complete the form.';
-      return;
-    }
+   
 
     this.isProcessing = true;
+    const { name, email, amount } = this.paymentForm.value;
 
-    const { name, email } = this.paymentForm.value;
+    const response: any = await this.http
+      .post(`${environment.API_BASE_URL}payments/create-payment-intent`, { amount: amount * 100, currency: 'usd' })
+      .toPromise();
 
-    // Mock PaymentIntent creation using Stripe's built-in logic
-    const { error, paymentIntent } = await this.stripe.confirmCardPayment(
-      'sk_test_51QjLARBROmvnBNkdNVEZY2qhdNPkMdfvHwu8LbpXaivH9nWhToq6kBB5iUAn2tbAxXvl38Um3CV0MY7zTdSIKApa00OQ4VdQoC', // Mock client_secret for practice
-      {
-        payment_method: {
-          card: this.card,
-          billing_details: {
-            name,
-            email,
-          },
-        },
-      }
-    );
+    const clientSecret = response.clientSecret;
+
+    const { error, paymentIntent } = await this.stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: this.card,
+        billing_details: { name, email },
+      },
+    });
 
     this.isProcessing = false;
 

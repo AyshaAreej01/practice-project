@@ -17,6 +17,14 @@
         </mat-error>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" class="full-width email-payment">
+        <mat-label>Amount (USD)</mat-label>
+        <input matInput type="number" formControlName="amount" />
+        <mat-error *ngIf="paymentForm.get('amount')?.invalid && paymentForm.get('amount')?.touched">
+            Enter a valid amount.
+        </mat-error>
+    </mat-form-field>
+
     <div id="card-element" class="stripe-card-element"></div>
     <div class="stripe-errors" *ngIf="paymentStatus">{{ paymentStatus }}</div>
 

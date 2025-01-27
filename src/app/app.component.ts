@@ -8,6 +8,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MultiStepComponent } from './multi-step/multi-step.component';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { JsonPipe } from '@angular/common';
+import { CrudComponent } from './crud/crud.component';
+import { PaymentComponent } from './payment/payment.component';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +21,18 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    LocationAndPlanComponent,
+    RouterModule,
+    CrudComponent,
     MultiStepComponent,
-    RouterOutlet,
-    RouterModule
+    PaymentComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'my-angular-app';
+  student:any={
+    name:'John Doe',
+    age: 25,
+  }
 }

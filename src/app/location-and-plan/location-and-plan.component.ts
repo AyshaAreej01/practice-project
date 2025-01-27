@@ -9,25 +9,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-
-
 @Component({
   selector: 'app-location-and-plan',
   imports: [
-     CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCheckboxModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   templateUrl: './location-and-plan.component.html',
   styleUrl: './location-and-plan.component.css',
 })
 export class LocationAndPlanComponent {
-    @Input() locationPlanForm!: FormGroup;
-  
+  @Input() locationPlanForm!: FormGroup;
 }

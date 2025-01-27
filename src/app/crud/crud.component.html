@@ -1,0 +1,31 @@
+<!-- src/app/components/crud/crud.component.html -->
+<div>
+    <h2>CRUD Example</h2>
+
+    <!-- Create New Item -->
+    <form (ngSubmit)="createItem()" style="margin-bottom: 20px;">
+        <input type="text" [(ngModel)]="newItem.title" name="title" placeholder="Title" required />
+        <input type="text" [(ngModel)]="newItem.body" name="body" placeholder="Body" required />
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- List Items -->
+    <ul>
+        <li *ngFor="let item of items">
+            {{ item.title }}
+            <button (click)="selectItem(item)">Edit</button>
+            <button (click)="deleteItem(item.id)">Delete</button>
+        </li>
+    </ul>
+
+    <!-- Edit Selected Item -->
+    <div *ngIf="selectedItem">
+        <h3>Edit Item</h3>
+        <form (ngSubmit)="updateItem()">
+            <input type="text" [(ngModel)]="selectedItem.title" name="editTitle" required />
+            <input type="text" [(ngModel)]="selectedItem.body" name="editBody" required />
+            <button type="submit">Update</button>
+            <button type="button" (click)="selectedItem = null">Cancel</button>
+        </form>
+    </div>
+</div>

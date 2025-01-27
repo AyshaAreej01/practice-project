@@ -12,3 +12,21 @@
 .email-payment{
     margin-left: 23px;
 }
+.card-section {
+    margin: 16px 0;
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 4px;
+  }
+  
+  .stripe-card-element {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
